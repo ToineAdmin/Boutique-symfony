@@ -1,0 +1,65 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Ma commande - La Boutique
+{% endblock %}
+
+{% block content %}
+	<h2>
+		Je passe ma commande
+	</h2>
+	<p>Choissiez vos préférences avant de passer votre commande sur La Boutique.</p>
+	<hr>
+	<div class="row">
+		<div class="col-md-6">
+			{% set formHtml %}
+			    {{ form_start(form, {action:path('order_recap')}) }}
+					{{ form_label(form.adresses, 'Choissez votre adresse de livraison') }}
+					<a href="{{ path('account_adress_add')}}" > Ajouter une nouvelle adresse </a>
+			    {{ form_end(form) }}
+			{% endset %}
+
+			{{ formHtml|replace({'[br]': '<br/>'})|raw }}{# remplace br par <br/> en mettant le formulaire dans un formHtml #}
+			</div>
+			<div class="col-md-6">
+                <div class="text-center font-weight-bold">
+                    <p>Récapitulatif</p>
+                </div>
+				{% set total = null %}
+				{% set totalQuantity = null %}
+
+                <div class="order-summary">
+
+				{% for product in cart %}
+					<div class="row">
+						<div class="col-2">
+							<img src="/uploads/{{product.product.illustration}}" alt="{{product.product.name}}" class="img-cart"><br>
+						</div>
+						<div class="col-8 my-auto">
+							{{product.product.name}}<br>
+							<small>{{product.product.subtitle}}</small>
+						</div>
+						<div class="col-2 my-auto">
+							x
+							{{ product.quantity }}
+						</div>
+					</div>
+					<hr>
+					{% set total = total + (product.product.price/ 100) * product.quantity %}
+				{% endfor %}
+				<div class="row">
+					<div class="col-9"></div>
+					<div class="col-3 font-weight-bold">
+						<p>Total</p>
+					</div>
+				</div>
+				<div class="row ">
+					<div class="col-9"></div>
+					<div class="col-3 font-weight-bold">
+						{{total| number_format(2, ',', '.')}}
+					</div>
+				</div>
+                </div>
+
+			</div>
+		</div>
+	{% endblock %}

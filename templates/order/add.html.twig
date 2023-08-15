@@ -1,0 +1,71 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Mon récap - La Boutique
+{% endblock %}
+
+{% block content %}
+	<h2>
+		Mon Récapitulatif
+	</h2>
+	<p>Vérifiez les informations avant paiement</p>
+	<hr>
+	<div class="row mb-5">
+		<div class="col-md-6">
+			<h5>Mon adresse de livraison</h5>
+			<div class="form-check mt-4">
+				{{ delivery | raw }}
+			</div>
+			<h5 class="mt-2">Mon choix de livraison<br/></h5>
+			<div class="form-check mt-3">
+				{{carriers.name}}<br/>
+				{{carriers.description}}<br/>
+				{{ (carriers.price / 100) | number_format(2, ',', '.')}}
+				€
+			</div>
+		</div>
+		<div class="col-md-6">
+			<div class="text-center font-weight-bold">
+				<h5>Ma commande</h5>
+			</div>
+			{% set total = null %}
+			{% set totalQuantity = null %}
+			<div class="order-summary">
+				{% for product in cart %}
+					<div class="row">
+						<div class="col-2">
+							<img src="/uploads/{{product.product.illustration}}" alt="{{product.product.name}}" class="img-cart"><br>
+						</div>
+						<div class="col-8 my-auto">
+							{{product.product.name}}<br>
+							<small>{{product.product.subtitle}}</small><br>
+							x
+							{{ product.quantity }}
+						</div>
+						<div class="col-2 my-auto">
+							{{ ((product.product.price/ 100) * product.quantity) | number_format(2, ',', '.')}}€
+						</div>
+					</div>
+					<hr>
+					{% set total = total + (product.product.price/ 100) * product.quantity %}
+				{% endfor %}
+				<div class="row ">
+					<div class="col-9 font-weight-bold">
+						<p>Livraison</p>
+					</div>
+					<div class="col-3">
+						{{ (carriers.price/100) | number_format(2, ',', '.')}}
+						€
+					</div>
+				</div>
+				<div class="row ">
+					<div class="col-9 font-weight-bold">Total</div>
+					<div class="col-3 font-weight-bold">
+						{{ (total + (carriers.price/100))| number_format(2, ',', '.')}}
+						€
+					</div>
+				</div>
+				<a href="{{ path('stripe_create_session', {reference:reference}) }}" class="btn btn-success btn-block mt-3">Payer</a>
+			</div>
+		</div>
+	</div>
+{% endblock %}
