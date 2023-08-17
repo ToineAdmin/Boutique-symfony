@@ -5,7 +5,7 @@ namespace App\Classes;
 use Mailjet\Client;
 use Mailjet\Resources;
 
-class Mail
+class Mailjet
 {
  
     // API KEY private

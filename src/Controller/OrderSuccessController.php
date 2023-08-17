@@ -29,15 +29,15 @@ class OrderSuccessController extends AbstractController
         }
 
 
-        if (!$order->isIsPaid()) {
+        if ($order->getState() == 0) {
             $cart->remove();
-            $order->setIsPaid(1);
+            $order->setState(1);
             $this->entityManager->flush();
 
 
             //envoyer mail au client
             $mail = new Mail();
-            $content = "Bonjour" . $order->getUser()->getFirsname() . "<br/>Merci pour votre commande<br/> Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin rutrum iaculis enim, eu congue lorem maximus sit amet. Sed posuere at massa et pretium. ";
+            $content = "Bonjour" . $order->getUser()->getFirstname() . "<br/>Merci pour votre commande<br/> Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin rutrum iaculis enim, eu congue lorem maximus sit amet. Sed posuere at massa et pretium. ";
             $mail->send($order->getUser()->getEmail(), $order->getUser()->getFirstname(), 'Votre commande la Boutique est validée', $content);
         }
 
