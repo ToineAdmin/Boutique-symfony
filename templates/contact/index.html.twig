@@ -1,0 +1,28 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Nous contacter - La Boutique{% endblock %}
+
+{% block content %}
+    <h2> Nous contacter </h2>
+    <p>N'hésitez pas à prendre contact avec nos équipes, nous vous répondrons le plus rapidement possible</p>
+    {% for message in app.flashes ('notice') %}
+        <div class="alert alert-info">{{ message }}</div>
+    {% endfor %}
+    <div class="row">
+        <div class="col-md-8">
+            {{ form(form) }}
+        </div>
+        <div class="col-md-4">
+            <h5>La Boutique </h5>
+            <p>
+                Numéro de téléphone: 06 66 66 5* ** <br/>
+                Adresse:<br/>
+                8 rue Artichaud<br/>
+                97427 Etang-Salé
+            </p>
+        </div>
+
+
+
+    </div>
+{% endblock %}
