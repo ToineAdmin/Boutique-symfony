@@ -20,9 +20,9 @@ class ContactController extends AbstractController
 
         if($form->isSubmitted() && $form->isValid()){
             $this->addFlash('notice', 'Merci de nous avoir contacté, notre équipe va vous répondre dans les meilleurs délais.');
-            $content = $form->getData(); // recup form data 
-            $mail = new Mailjet();
-            $mail->send('admin@laboutique.com', 'La Boutique', 'Vous avez reçu une nouvelle demande de contact', $content);
+            // $content = $form->getData(); // recup form data 
+            // $mail = new Mailjet();
+            // $mail->send('admin@laboutique.com', 'La Boutique', 'Vous avez reçu une nouvelle demande de contact', $content);
 
 
         }
