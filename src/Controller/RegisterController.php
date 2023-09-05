@@ -46,9 +46,9 @@ class RegisterController extends AbstractController
                 $this->entityManager->persist($user); 
                 $this->entityManager->flush();
 
-                $mail = new Mail();
-                $content ="Bonjour" . $user->getFirsname() . "<br/>Bienvenue sur la première Boutique consacré au 100% made in France <br/> Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin rutrum iaculis enim, eu congue lorem maximus sit amet. Sed posuere at massa et pretium. ";
-                $mail->send($user->getEmail(), $user->getFirstname(), 'Bienvenue sur la Boutique', $content);
+                // $mail = new Mail();
+                // $content ="Bonjour" . $user->getFirsname() . "<br/>Bienvenue sur la première Boutique consacré au 100% made in France <br/> Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin rutrum iaculis enim, eu congue lorem maximus sit amet. Sed posuere at massa et pretium. ";
+                // $mail->send($user->getEmail(), $user->getFirstname(), 'Bienvenue sur la Boutique', $content);
 
                 $notification = 'Votre inscription a été prise en compte';
 

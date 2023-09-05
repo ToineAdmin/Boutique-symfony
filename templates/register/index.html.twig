@@ -1,5 +1,5 @@
 {% extends 'base.html.twig' %}
-
+{% block title %}Inscription - La Boutique{% endblock %} 
 
 {% block content %}
 
@@ -7,6 +7,7 @@
 
 {% if notification %}
     <div class="alert alert-infor">{{notification}}</div>
-{{form(form)}}
+{% endif %}
+    {{form(form)}}
 
-{% endblock %}
+{% endblock %} 
